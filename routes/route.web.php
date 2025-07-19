@@ -15,7 +15,8 @@ $TabUri = [
    
     '/liste' => [
         'controller' => CompteController::class,
-        'method' => "index"
+        'method' => "index",
+        'middlewares' => ['auth']
     ],
    '/dologin' => [
         'controller' => LoginController::class,

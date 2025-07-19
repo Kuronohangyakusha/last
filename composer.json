@@ -4,6 +4,7 @@
         "psr-4": {
             "App\\Entity\\":"src/entity",
             "App\\Core\\":"app/core",
+            "App\\Core\\Middlewares\\":"app/core/middlewares",
             "App\\Controller\\":"src/controller",
             "App\\repository\\":"src/repository",
             "App\\service\\":"src/service",

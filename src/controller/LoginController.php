@@ -24,18 +24,8 @@ class LoginController extends AbstractController{
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $data=$_POST;
-        $valider=[
-            "login"=>[
-                'required',
-                ['minlengh','ca doit contenir au moin 4',4]
-            ],
-            "password"=>[
-                
-                    'required',
-                    ['minlengh','ca doit contenir au moin 4',4]
-                ]
-            
-        ];
+        $valider = $this->validator::getLoginRules();
+        
            if($this->validator::validate($data,$valider)){
                 $result = $this->securityService->seConnecter($data['login'], $data['password']);
          

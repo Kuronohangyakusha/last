@@ -27,14 +27,27 @@ class Router{
             $route = $uris[$currentUri];
             $controllerClass = $route['controller'];
             $method = $route['method'];
-             # $middlewares = $route['middlewares'] ?? [];
+             $middlewares = $route['middlewares'] ?? [];
             
-            #runMiddleWare($middlewares);
+            self::runMiddleware($middlewares);
            
             $controller = new $controllerClass();
             $controller->$method();
         } else {
            
+        }
+    }
+
+    private static function runMiddleware(array $middlewares)
+    {
+        require_once '../app/config/middlewares.php';
+        
+        foreach ($middlewares as $middlewareName) {
+            if (isset($middlewares[$middlewareName])) {
+                $middlewareClass = $middlewares[$middlewareName];
+                $middleware = new $middlewareClass();
+                $middleware();
+            }
         }
     }
 }

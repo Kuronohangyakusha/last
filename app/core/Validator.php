@@ -28,7 +28,33 @@ class Validator extends Singleton {
                 if (!preg_match('/^1\d{12}$/', $value)) {
                     self::addError($key, $message);
                 }
-            }         
+            },
+            "isPhone" => function ($key, $value, $message = "Numéro de téléphone invalide") {
+                $value = preg_replace('/\D/', '', $value);
+                if (strlen($value) < 9) {
+                    self::addError($key, $message);
+                }
+            }
+        ];
+    }
+
+    public static function getInscriptionRules()
+    {
+        return [
+            "nom" => ['required', ['minlengh', 'Le nom doit contenir au moins 2 caractères', 2]],
+            "prenom" => ['required', ['minlengh', 'Le prénom doit contenir au moins 2 caractères', 2]],
+            "adresse" => ['required'],
+            "telephone" => ['required', ['isPhone', 'Le numéro de téléphone doit contenir au moins 9 chiffres']],
+            "numerocni" => ['required', ['isCNI', 'Numéro de CNI invalide']],
+            "password" => ['required', ['minlengh', 'Le mot de passe doit contenir au moins 6 caractères', 6]]
+        ];
+    }
+
+    public static function getLoginRules()
+    {
+        return [
+            "login" => ['required', ['minlengh', 'Le login doit contenir au moins 4 caractères', 4]],
+            "password" => ['required', ['minlengh', 'Le mot de passe doit contenir au moins 4 caractères', 4]]
         ];
     }
         

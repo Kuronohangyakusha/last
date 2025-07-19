@@ -30,15 +30,7 @@ class InscriptionController extends AbstractController {
             $data['idprofil'] = 2;
         }
         
-        $rules = [
-            "nom" => ['required', ['minlengh', 'Le nom doit contenir au moins 2 caractères', 2]],
-            "prenom" => ['required', ['minlengh', 'Le prénom doit contenir au moins 2 caractères', 2]],
-            "adresse" => ['required'],
-            "telephone" => ['required', ['minlengh', 'Le numéro de téléphone doit contenir au moins 9 chiffres', 9]],
-            "numerocni" => ['required'],
-            "password" => ['required', ['minlengh', 'Le mot de passe doit contenir au moins 6 caractères', 6]],
-            
-        ];
+        $rules = $this->validator::getInscriptionRules();
         
         if ($this->validator::validate($data, $rules)) {
             try {
