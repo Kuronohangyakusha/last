@@ -43,17 +43,33 @@
           <div class="text-center mb-8">
             <h1 class="text-3xl font-bold text-gray-900 mb-2">Création Compte</h1>
             <p class="text-gray-600">Créez votre compte pour commencer</p>
+            
+            <?php if($this->session->get('error')): ?>
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <?php foreach($this->session->get('error') as $field => $message): ?>
+                        <p><?= htmlspecialchars($message) ?></p>
+                    <?php endforeach; ?>
+                </div>
+                <?php $this->session->set('error', null); ?>
+            <?php endif; ?>
+            
+            <?php if($this->session->get('success')): ?>
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    <p><?= htmlspecialchars($this->session->get('success')) ?></p>
+                </div>
+                <?php $this->session->set('success', null); ?>
+            <?php endif; ?>
           </div>
 
           <form method="POST" action="/register" enctype="multipart/form-data" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">NOM</label>
-                <input type="text" name="nom" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors">
+                <input type="text" name="nom" value="<?= htmlspecialchars($_POST['nom'] ?? '') ?>" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors" required>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
-                <input type="text" name="prenom" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors">
+                <input type="text" name="prenom" value="<?= htmlspecialchars($_POST['prenom'] ?? '') ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors" required>
               </div>
             </div>
 
@@ -86,22 +102,22 @@
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Adresse</label>
-              <input type="text" name="adresse" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors">
+              <input type="text" name="adresse" value="<?= htmlspecialchars($_POST['adresse'] ?? '') ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors" required>
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
-              <input type="tel" name="telephone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors">
+              <input type="tel" name="telephone" value="<?= htmlspecialchars($_POST['telephone'] ?? '') ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors" required>
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">CNI</label>
-              <input type="text" name="numerocni" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors">
+              <input type="text" name="numerocni" value="<?= htmlspecialchars($_POST['numerocni'] ?? '') ?>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors" required>
             </div>
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
-              <input type="password" name="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors">
+              <input type="password" name="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors" required>
             </div>
 
             <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 outline-none">

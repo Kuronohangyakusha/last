@@ -66,6 +66,22 @@
                     <div class="text-center mb-12">
                         <h1 class="text-4xl font-bold text-gray-900 mb-3">Connexion</h1>
                         <p class="text-gray-600">Connectez-vous à votre compte</p>
+                        
+                        <?php if($this->session->get('error')): ?>
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 mt-4">
+                                <?php foreach($this->session->get('error') as $field => $message): ?>
+                                    <p><?= htmlspecialchars($message) ?></p>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php $this->session->set('error', null); ?>
+                        <?php endif; ?>
+                        
+                        <?php if($this->session->get('success')): ?>
+                            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 mt-4">
+                                <p><?= htmlspecialchars($this->session->get('success')) ?></p>
+                            </div>
+                            <?php $this->session->set('success', null); ?>
+                        <?php endif; ?>
                     </div>
                     
                     <!-- Formulaire -->
@@ -73,18 +89,14 @@
                         <!-- Téléphone -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-3" >login</label>
-                            <input   name='login' class="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors text-lg" placeholder="Entrez votre numéro">
-                            <?php if(!empty($this->session->get('error')['login'])): ?>
-                                <p class="text-sm text-red-500"><?= $this->session->get('error')['login'] ?></p>
-                                <?php endif ?>
-
+                            <input name='login' value="<?= htmlspecialchars($_POST['login'] ?? '') ?>" class="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors text-lg" placeholder="Entrez votre numéro" required>
                         </div>
                         
                         <!-- Password -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-3">Password</label>
                             <div class="relative">
-                                <input type="password" name='password' class="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors text-lg pr-12" placeholder="Entrez votre mot de passe">
+                                <input type="password" name='password' class="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-colors text-lg pr-12" placeholder="Entrez votre mot de passe" required>
                                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                     <svg class="w-5 h-5 text-gray-400 cursor-pointer hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
